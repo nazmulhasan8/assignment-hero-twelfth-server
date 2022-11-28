@@ -54,6 +54,14 @@ async function run() {
        
 
 
+        app.get('/allProducts', async (req, res) => {
+            const query = {paid: true};
+            const result = await allProductsCollection.find(query).toArray();
+            res.send(result);
+        });
+
+
+
         app.patch('/users/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
             const verified = req.body.verified;
@@ -200,8 +208,10 @@ async function run() {
 
         app.delete('/allProducts/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
-            const filter = { _id: ObjectId(id) };
+            const filter = { productId: id };
             const result = await allProductsCollection.deleteOne(filter);
+            const result2 = await advertiseCollection.deleteOne(filter);
+            console.log(result2 );
             res.send(result);
         })
 
