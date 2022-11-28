@@ -262,8 +262,6 @@ async function run() {
             res.send(result);
         })
 
-New serv 
-
 
 
         // jwt
